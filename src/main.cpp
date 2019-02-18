@@ -13,6 +13,7 @@ parse(int argc, char *argv[])
 			("h,host", "host", cxxopts::value<std::string>()->default_value("localhost"))
 			("p,port", "port", cxxopts::value<int>()->default_value("8000"))
 			("i,interactive", "interactive")
+			("n,notBundled", "notBundled")
 			("m,message", "message", cxxopts::value<std::string>());
 		auto result = options.parse(argc, argv);
 		return result;
@@ -28,15 +29,13 @@ int main(int argc, char *argv[])
 {
 	auto result = parse(argc, argv);
 	auto arguments = result.arguments();
-	std::cout << "Saw " << arguments.size() << " arguments" << std::endl;
-
 
 	ofAppNoWindow window;
 	ofSetupOpenGL(&window, 0, 0, OF_WINDOW);
 	if(result.count("message") == 0){
 		ofRunApp(new ofApp(result["port"].as<int>()));
 	}else{
-		ofRunApp(new ofApp(result["host"].as<std::string>(), result["port"].as<int>(), result["message"].as<std::string>(), result["interactive"].as<bool>()));
+		ofRunApp(new ofApp(result["host"].as<std::string>(), result["port"].as<int>(), result["message"].as<std::string>(), result["interactive"].as<bool>(), result["notBundled"].as<bool>()));
 	}
 	return 0;
 }

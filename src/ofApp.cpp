@@ -6,10 +6,10 @@ ofApp::ofApp(int port)
 {
     _receiver.setup(port);
 }
-ofApp::ofApp(std::string host, int port, std::string message, bool interactive)
+ofApp::ofApp(std::string host, int port, std::string message, bool interactive, bool notBundled)
 {
     _sender.setup(host, port);
-    sendMessage(message);
+    sendMessage(message, notBundled);
 
     if (interactive)
     {
@@ -17,7 +17,7 @@ ofApp::ofApp(std::string host, int port, std::string message, bool interactive)
         {
             ofLogNotice(_name) << "please enter a new message: address firstArg secondArg thirdArg";
             getline(cin, message);
-            sendMessage(message);
+            sendMessage(message, notBundled);
         }
     }
     else
@@ -73,7 +73,7 @@ void ofApp::update()
     }
 }
 
-void ofApp::sendMessage(std::string message)
+void ofApp::sendMessage(std::string message, bool notBundled)
 {
     auto parts = ofSplitString(message, " ");
     auto address = parts[0];
@@ -117,5 +117,5 @@ void ofApp::sendMessage(std::string message)
         }
     }
 
-    _sender.sendMessage(msg);
+    _sender.sendMessage(msg, !notBundled);
 }
