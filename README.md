@@ -2,6 +2,20 @@
 ## Description
 ofOSCDebugger is command line tool to monitor and send OSC messages.
 
+## Installation
+### OSX
+On OSX you can install it via brew.
+
+```
+brew tap thomasgeissl/tools
+brew install ofoscdebugger
+# brew upgrade ofoscdebugger
+```
+This will download the most recent version of the OSC debugger and add it to your search path.
+
+### Building
+And as always you can clone it to your apps directory and build it by running make.
+
 ## Usage
 * listen to incommig OSC messages: `ofOSCDebugger -p 8000`
 * send an OSC message: `ofOSCDebugger -h localhost -p 8000 -m "/address 0 0.0 zero"`
