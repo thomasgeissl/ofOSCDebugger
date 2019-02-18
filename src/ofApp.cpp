@@ -13,9 +13,9 @@ ofApp::ofApp(std::string host, int port, std::string message, bool interactive)
 
     if (interactive)
     {
-        // getline
         while (true)
         {
+            ofLogNotice(_name) << "please enter a new message: address firstArg secondArg thirdArg";
             getline(cin, message);
             sendMessage(message);
         }
@@ -52,6 +52,14 @@ void ofApp::update()
             else if (m.getArgType(i) == OFXOSC_TYPE_FLOAT)
             {
                 msgString += ofToString(m.getArgAsFloat(i));
+            }
+            else if (m.getArgType(i) == OFXOSC_TYPE_TRUE)
+            {
+                msgString.pop_back();
+            }
+            else if (m.getArgType(i) == OFXOSC_TYPE_FALSE)
+            {
+                msgString.pop_back();
             }
             else if (m.getArgType(i) == OFXOSC_TYPE_STRING)
             {
@@ -94,9 +102,19 @@ void ofApp::sendMessage(std::string message)
         }
         else
         {
-            // TODO: bool, T, F, TRUE, FALSE, true, false
-            // TODO: blob, impulse
-            msg.addStringArg(arg);
+            // TODO: blob, impulse, timetag
+            if (arg == "TRUE" || arg == "true" || arg == "T")
+            {
+                msg.addBoolArg(true);
+            }
+            else if (arg == "FALSE" || arg == "false" || arg == "F")
+            {
+                msg.addBoolArg(false);
+            }
+            else
+            {
+                msg.addStringArg(arg);
+            }
         }
     }
 
