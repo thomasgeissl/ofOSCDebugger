@@ -46,7 +46,6 @@ void ofApp::update()
             // display the argument - make sure we get the right type
             if (m.getArgType(i) == OFXOSC_TYPE_INT32)
             {
-                ofLogNotice() << "got int arg " << m.getArgTypeName(i);
                 msgString += ofToString(m.getArgAsInt32(i));
             }
             else if (m.getArgType(i) == OFXOSC_TYPE_FLOAT)
