@@ -18,14 +18,14 @@ And as always you can clone it to your apps directory and build it by running ma
 
 ## Usage
 * listen to incommig OSC messages: `ofOSCDebugger -p 8000`
-* send an OSC message: `ofOSCDebugger -h localhost -p 8000 -m "/address 0 0.0 zero"`
-* add -i to send an OSC message and then go into the interactive mooe to be able to enter a new message and send it to the specified receiver: `ofOSCDebugger -h localhost -p 8000 -m "/address 0 0.0 zero" -i`
+* send an OSC message: `ofOSCDebugger -h localhost -p 8000 -m "/address 0 0.0 zero false"`
+* add -i to send an OSC message and then go into the interactive mooe to be able to enter a new message and send it to the specified receiver: `ofOSCDebugger -h localhost -p 8000 -m "/address 0 0.0 zero false" -i`
 * whitespaces in string args has to be written as `---`, e.g.: `ofOSCDebugger -h localhost -p 8000 -m "/address oneStringArg anotherStringArg first---second--third"`
 
 ## License
 This software is distributed under the [MIT License](https://en.wikipedia.org/wiki/MIT_License), please note that dependencies might be released differently.
 
-Copyright (c) 2016 Thomas Geissl
+Copyright (c) 2019 Thomas Geissl
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
