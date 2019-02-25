@@ -112,7 +112,19 @@ void ofApp::sendMessage(std::string message, bool notBundled)
             }
             else
             {
-                msg.addStringArg(arg);
+
+                auto words = ofSplitString(arg, "---");
+                if(words.size() > 1){
+                    std::string multiWordArg = "";
+                    for(auto word : words){
+                        multiWordArg += word;
+                        multiWordArg += " ";
+                    }
+                    multiWordArg = multiWordArg.substr(0, multiWordArg.size() - 1);
+                    msg.addStringArg(multiWordArg);
+                }else{
+                    msg.addStringArg(arg);
+                }
             }
         }
     }
