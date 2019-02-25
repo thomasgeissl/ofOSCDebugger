@@ -20,7 +20,13 @@ And as always you can clone it to your apps directory and build it by running ma
 * listen to incommig OSC messages: `ofOSCDebugger -p 8000`
 * send an OSC message: `ofOSCDebugger -h localhost -p 8000 -m "/address 0 0.0 zero false"`
 * add -i to send an OSC message and then go into the interactive mooe to be able to enter a new message and send it to the specified receiver: `ofOSCDebugger -h localhost -p 8000 -m "/address 0 0.0 zero false" -i`
-* whitespaces in string args has to be written as `---`, e.g.: `ofOSCDebugger -h localhost -p 8000 -m "/address oneStringArg anotherStringArg first---second--third"`
+* whitespaces in string args has to be written as `---`, e.g.: `ofOSCDebugger -h localhost -p 8000 -m "/address oneStringArg anotherStringArg first---second---third"`
+
+## Changelog
+### 1.1.0
+* Added support for string args that contain whitespaces
+### 1.0.0
+* First stable version
 
 ## License
 This software is distributed under the [MIT License](https://en.wikipedia.org/wiki/MIT_License), please note that dependencies might be released differently.
