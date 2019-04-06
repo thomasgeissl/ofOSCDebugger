@@ -2,9 +2,12 @@
 #include <iostream>
 #include <regex>
 
-ofApp::ofApp(int port)
+ofApp::ofApp(int port, bool record, std::string outputPath) : _outputPath(outputPath)
 {
     _receiver.setup(port);
+		_record.set("record", record);
+		// _parameters.add(_recording);
+		_recording = ofJson::array();
 }
 ofApp::ofApp(std::string host, int port, std::string message, bool interactive, bool notBundled)
 {
@@ -31,13 +34,20 @@ void ofApp::update()
     ofSetWindowTitle(ofToString((int)(ofGetFrameRate())));
     while (_receiver.hasWaitingMessages())
     {
-        ofxOscMessage m;
-        _receiver.getNextMessage(m);
+			ofxOscMessage m;
+			_receiver.getNextMessage(m);
+			ofJson messageJson;
+			messageJson["address"] = m.getAddress();
+			// messageJson["args"] = ofJson.array();
+			messageJson["timeStamp"] = ofGetElapsedTimeMillis();
         std::string msgString;
         msgString = m.getAddress();
+				messageJson["address"] = m.getAddress();
         msgString += ":";
         for (size_t i = 0; i < m.getNumArgs(); i++)
         {
+					ofJson argJson;
+					argJson["type"] = m.getArgTypeName(i);
             // get the argument type
             msgString += " ";
             msgString += m.getArgTypeName(i);
@@ -47,10 +57,12 @@ void ofApp::update()
             if (m.getArgType(i) == OFXOSC_TYPE_INT32)
             {
                 msgString += ofToString(m.getArgAsInt32(i));
+								argJson["value"] = m.getArgAsInt32(i);
             }
             else if (m.getArgType(i) == OFXOSC_TYPE_FLOAT)
             {
                 msgString += ofToString(m.getArgAsFloat(i));
+								argJson["value"] = m.getArgAsFloat(i);
             }
             else if (m.getArgType(i) == OFXOSC_TYPE_TRUE)
             {
@@ -63,14 +75,25 @@ void ofApp::update()
             else if (m.getArgType(i) == OFXOSC_TYPE_STRING)
             {
                 msgString += m.getArgAsString(i);
+								argJson["value"] = m.getArgAsString(i);
             }
             else
             {
                 msgString += "unhandled argument type " + m.getArgTypeName(i);
             }
+						messageJson["args"].push_back(argJson);
         }
         ofLogNotice(_name) << msgString;
+				if(_record){
+					_recording.push_back(messageJson);
+				}
     }
+}
+
+void ofApp::exit(){
+	if(_record){
+		ofSaveJson(_outputPath, _recording);
+	}
 }
 
 void ofApp::sendMessage(std::string message, bool notBundled)

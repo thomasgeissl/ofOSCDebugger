@@ -12,6 +12,8 @@ parse(int argc, char *argv[])
 		options.add_options()
 			("h,host", "host", cxxopts::value<std::string>()->default_value("localhost"))
 			("p,port", "port", cxxopts::value<int>()->default_value("8000"))
+			("o,output", "output", cxxopts::value<std::string>()->default_value(ofFilePath::join(ofFilePath::getUserHomeDir(), ofGetTimestampString()+".ofOSCDebugger.data.json")))
+			("r,record", "record")
 			("i,interactive", "interactive")
 			("n,notBundled", "notBundled")
 			("m,message", "message", cxxopts::value<std::string>());
@@ -33,7 +35,7 @@ int main(int argc, char *argv[])
 	ofAppNoWindow window;
 	ofSetupOpenGL(&window, 0, 0, OF_WINDOW);
 	if(result.count("message") == 0){
-		ofRunApp(new ofApp(result["port"].as<int>()));
+		ofRunApp(new ofApp(result["port"].as<int>(), result["record"].as<bool>(), result["output"].as<std::string>()));
 	}else{
 		ofRunApp(new ofApp(result["host"].as<std::string>(), result["port"].as<int>(), result["message"].as<std::string>(), result["interactive"].as<bool>(), result["notBundled"].as<bool>()));
 	}
