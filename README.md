@@ -14,15 +14,19 @@ brew install ofoscdebugger
 This will download the most recent version of the OSC debugger and add it to your search path.
 
 ### Building
-And as always you can clone it to your apps directory and build it by running make.
+And as always you can clone it to your openFrameworks apps directory and build it by running make.
 
 ## Usage
 * listen to incommig OSC messages: `ofOSCDebugger -p 8000`
 * send an OSC message: `ofOSCDebugger -h localhost -p 8000 -m "/address 0 0.0 zero false"`
-* add -i to send an OSC message and then go into the interactive mooe to be able to enter a new message and send it to the specified receiver: `ofOSCDebugger -h localhost -p 8000 -m "/address 0 0.0 zero false" -i`
+* add -i to send an OSC message and then go into the interactive mode to be able to enter a new message and send it to the specified receiver: `ofOSCDebugger -h localhost -p 8000 -m "/address 0 0.0 zero false" -i`
 * whitespaces in string args has to be written as `---`, e.g.: `ofOSCDebugger -h localhost -p 8000 -m "/address oneStringArg anotherStringArg first---second---third"`
+* listen to incommig OSC messages and save OSC sequence as json: `ofOSCDebugger -p 8000 -o data.json`
+* replay an OSC sequence: `ofOSCDebugger -h localhost -p 8000 -j data.json`
 
 ## Changelog
+### 1.2.0
+* Added record and replay
 ### 1.1.0
 * Added support for string args that contain whitespaces
 ### 1.0.0

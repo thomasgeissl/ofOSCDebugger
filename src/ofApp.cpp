@@ -6,8 +6,8 @@ ofApp::ofApp(int port, bool record, std::string outputPath) : _outputPath(output
 {
     _receiver.setup(port);
 		_record.set("record", record);
-		// _parameters.add(_recording);
-		_recording = ofJson::array();
+		_parameters.add(_record);
+		_messages = ofJson::array();
 }
 ofApp::ofApp(std::string host, int port, std::string message, bool interactive, bool notBundled)
 {
@@ -28,6 +28,45 @@ ofApp::ofApp(std::string host, int port, std::string message, bool interactive, 
         ofExit(0);
     }
 }
+ofApp::ofApp(std::string host, int port, std::string inputPath){
+	_sender.setup(host, port);
+	ofFile file(inputPath);
+	if(file.exists()){
+		int lastTimeStamp = 0;
+		file >> _messages;
+		for(auto & message : _messages){
+			ofxOscMessage msg;
+			msg.setAddress(message["address"]);
+			for(auto & arg : message["args"]){
+				if (arg["type"] == "i"){
+					int value = arg["value"];
+					msg.addIntArg(value);
+				} else if (arg["type"] == "f"){
+					float value = arg["value"];
+					msg.addFloatArg(value);
+				} else if (arg["type"] == "s"){
+					std::string value = arg["value"];
+					msg.addStringArg(value);
+				} else if (arg["type"] == "F"){
+					msg.addBoolArg(false);
+				} else if (arg["type"] == "T"){
+					msg.addBoolArg(true);
+				}
+			}
+
+
+			int timeStamp = message["timeStamp"];
+			ofLogNotice() << "sending message and waiting for" << timeStamp - lastTimeStamp;
+			ofSleepMillis(timeStamp - lastTimeStamp);
+			_sender.sendMessage(msg, true);
+			lastTimeStamp = message["timeStamp"];
+		}
+		ofExit(0);
+	}else{
+		ofLogError(_name) << "file does not exist: " << inputPath;
+		ofExit(-1);
+	}
+}
 
 void ofApp::update()
 {
@@ -38,7 +77,6 @@ void ofApp::update()
 			_receiver.getNextMessage(m);
 			ofJson messageJson;
 			messageJson["address"] = m.getAddress();
-			// messageJson["args"] = ofJson.array();
 			messageJson["timeStamp"] = ofGetElapsedTimeMillis();
         std::string msgString;
         msgString = m.getAddress();
@@ -85,14 +123,14 @@ void ofApp::update()
         }
         ofLogNotice(_name) << msgString;
 				if(_record){
-					_recording.push_back(messageJson);
+					_messages.push_back(messageJson);
 				}
     }
 }
 
 void ofApp::exit(){
 	if(_record){
-		ofSaveJson(_outputPath, _recording);
+		ofSaveJson(_outputPath, _messages);
 	}
 }
 
