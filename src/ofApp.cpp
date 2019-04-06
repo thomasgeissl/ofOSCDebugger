@@ -56,7 +56,7 @@ ofApp::ofApp(std::string host, int port, std::string inputPath){
 
 
 			int timeStamp = message["timeStamp"];
-			ofLogNotice() << "sending message and waiting for" << timeStamp - lastTimeStamp;
+			ofLogNotice() << "waiting for " << timeStamp - lastTimeStamp << "ms and then sending message";
 			ofSleepMillis(timeStamp - lastTimeStamp);
 			_sender.sendMessage(msg, true);
 			lastTimeStamp = message["timeStamp"];
