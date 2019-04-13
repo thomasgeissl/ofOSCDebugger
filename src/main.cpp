@@ -3,8 +3,17 @@
 #include <iostream>
 #include "cxxopts.hpp"
 
-cxxopts::ParseResult
-parse(int argc, char *argv[])
+std::string getAbsolutePath(std::string path){
+	char * cwdPath;
+	char buff[PATH_MAX + 1];
+	cwdPath = getcwd(buff, PATH_MAX + 1);
+	if(!ofFilePath::isAbsolute(path)){
+		path = ofFilePath::join(cwdPath, path);
+	}
+	return path;
+}
+
+cxxopts::ParseResult parse(int argc, char *argv[])
 {
 	try
 	{
@@ -35,10 +44,10 @@ int main(int argc, char *argv[])
 	ofAppNoWindow window;
 	ofSetupOpenGL(&window, 0, 0, OF_WINDOW);
 	if(result.count("input") > 0){
-		ofRunApp(new ofApp(result["host"].as<std::string>(), result["port"].as<int>(), result["input"].as<std::string>()));
+		ofRunApp(new ofApp(result["host"].as<std::string>(), result["port"].as<int>(), getAbsolutePath(result["input"].as<std::string>())));
 	} else if(result.count("message") == 0){
 		if(result.count("output") > 0){
-			ofRunApp(new ofApp(result["port"].as<int>(), true, result["output"].as<std::string>()));
+			ofRunApp(new ofApp(result["port"].as<int>(), true, getAbsolutePath(result["output"].as<std::string>())));
 		}else{
 			ofRunApp(new ofApp(result["port"].as<int>(), false, ""));
 		}
