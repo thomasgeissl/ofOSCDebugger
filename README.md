@@ -25,6 +25,8 @@ And as always you can clone it to your openFrameworks apps directory and build i
 * replay an OSC sequence: `ofOSCDebugger -h localhost -p 8000 -j data.json`
 
 ## Changelog
+### 1.1.1
+* Fixed relative paths for input and output paths
 ### 1.1.0
 * Added support for string args that contain whitespaces
 * Added record and replay
