@@ -4,11 +4,10 @@
 #include "cxxopts.hpp"
 
 std::string getAbsolutePath(std::string path){
-	char * cwdPath;
-	char buff[PATH_MAX + 1];
-	cwdPath = getcwd(buff, PATH_MAX + 1);
+	filesystem::path exePath = filesystem::current_path();
+	
 	if(!ofFilePath::isAbsolute(path)){
-		path = ofFilePath::join(cwdPath, path);
+		path = ofFilePath::join(exePath, path);
 	}
 	return path;
 }
