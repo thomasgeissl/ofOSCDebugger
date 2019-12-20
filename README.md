@@ -30,7 +30,7 @@ And as always you can clone it to your openFrameworks apps directory and build i
 - whitespaces in string args has to be written as `---`, e.g.: `ofOSCDebugger -h localhost -p 8000 -m "/address oneStringArg anotherStringArg first---second---third"`
 - listen to incommig OSC messages and save OSC sequence as json: `ofOSCDebugger -p 8000 -o data.json`
 - replay an OSC sequence: `ofOSCDebugger -h localhost -p 8000 -j data.json`
-- broadcast incomming messages: `ofOscDebugger -p 8000 -b "localhost 8001 localhost 8002"`
+- broadcast incomming messages: `ofOSCDebugger -p 8000 -b "localhost 8001 localhost 8002"`
 
 ## Changelog
 
