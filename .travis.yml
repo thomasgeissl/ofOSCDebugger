@@ -1,0 +1,19 @@
+os:
+  - osx
+
+language: cpp
+sudo: required
+
+script:
+  - ./scripts/$TRAVIS_OS_NAME/install.sh
+  # - ./scripts/$TRAVIS_OS_NAME/package.sh
+
+deploy:
+  provider: releases
+  api_key: $GH_TOKEN
+  ile_glob: true
+  file: $HOME/ofOSCDebugger_*
+  draft: true
+  skip_cleanup: true
+  on:
+    tags: true
