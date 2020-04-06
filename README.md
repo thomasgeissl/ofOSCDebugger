@@ -24,13 +24,13 @@ And as always you can clone it to your openFrameworks apps directory and build i
 
 ## Usage
 
-- listen to incommig OSC messages: `ofOSCDebugger -p 8000`
+- listen to incomig OSC messages: `ofOSCDebugger -p 8000`
 - send an OSC message: `ofOSCDebugger -h localhost -p 8000 -m "/address 0 0.0 zero false"`
 - add -i to send an OSC message and then go into the interactive mode to be able to enter a new message and send it to the specified receiver: `ofOSCDebugger -h localhost -p 8000 -m "/address 0 0.0 zero false" -i`
 - whitespaces in string args has to be written as `---`, e.g.: `ofOSCDebugger -h localhost -p 8000 -m "/address oneStringArg anotherStringArg first---second---third"`
-- listen to incommig OSC messages and save OSC sequence as json: `ofOSCDebugger -p 8000 -o data.json`
+- listen to incomig OSC messages and save OSC sequence as json: `ofOSCDebugger -p 8000 -o data.json`
 - replay an OSC sequence: `ofOSCDebugger -h localhost -p 8000 -j data.json`
-- broadcast incomming messages: `ofOSCDebugger -p 8000 -b "localhost 8001 localhost 8002"`
+- broadcast incoming messages: `ofOSCDebugger -p 8000 -b "localhost 8001 localhost 8002"`
 
 ## Changelog
 
