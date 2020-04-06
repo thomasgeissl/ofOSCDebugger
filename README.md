@@ -4,6 +4,9 @@
 
 ofOSCDebugger is command line tool to monitor and send OSC messages.
 
+## Build status
+[![Build Status](https://travis-ci.com/thomasgeissl/ofOSCDebugger.svg?branch=master)](https://travis-ci.com/thomasgeissl/ofOSCDebugger)
+
 ## Installation
 
 ### OSX
