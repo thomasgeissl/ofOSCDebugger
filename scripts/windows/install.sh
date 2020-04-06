@@ -1,6 +1,5 @@
-#!/bin/sh
 OFVERSION=0.11.0
-OFPLATTFORM=osx
+OFPLATTFORM=msys2
 GH_USER=$(dirname $TRAVIS_REPO_SLUG)
 GH_REPO=$(basename $TRAVIS_REPO_SLUG)
 

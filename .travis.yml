@@ -1,5 +1,7 @@
 os:
   - osx
+  - linux
+  - windows
 
 language: cpp
 sudo: required
