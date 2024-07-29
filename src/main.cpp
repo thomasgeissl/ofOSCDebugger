@@ -1,7 +1,7 @@
 #include "ofAppNoWindow.h"
 #include "ofApp.h"
 #include <iostream>
-#include "cxxopts.hpp"
+#include "ofxCommandLineUtils.h"
 
 std::string getAbsolutePath(std::string path)
 {
@@ -23,10 +23,10 @@ cxxopts::ParseResult parse(int argc, char *argv[])
 		auto result = options.parse(argc, argv);
 		return result;
 	}
-	catch (const cxxopts::OptionException &e)
+	catch (const cxxopts::exceptions::exception &e)
 	{
 		std::cout << "error parsing options: " << e.what() << std::endl;
-		exit(1);
+		exit(-1);
 	}
 }
 

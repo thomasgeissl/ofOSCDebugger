@@ -1,1 +1,2 @@
 ofxOsc
+local_addons/ofxCommandLineUtils#https://github.com/thomasgeissl/ofxCommandLineUtils.git@7b0c2e182b2e05cee9edc7f32ca0da470c137b5b
